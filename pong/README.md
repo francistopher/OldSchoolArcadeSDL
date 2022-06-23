@@ -1,23 +1,27 @@
 # Pong
 
-- i never knew about this game until high school pretty sad
+- i didn't know about this game until high school pretty sad
+
+## Object file build command for Apple Silicon
+
+```
+clang -v program.c -I/opt/homebrew/include -L/opt/homebrew/lib -lSDL2 -o program.o
+```
 
 ## To do
 
-- draw ball in terms of radius/diameter instead of rect
-- draw paddles as rect
-- detect contact based on bounds
+- draw paddles pixel by pixel
+- draw the ball with roundness 
+- add movement to the ball and the paddles
+- have ball bounce off paddles
+- reset ball when it goes out of bounds
 
-- create points label for left and right paddle
-- create lives left or points limit for win
-- intro text
-- game over text
+- draw score labels for each paddle
+- create system for determining winner
+- draw intro text
+- draw game over text
 
-- add spin to ball
-- add acceleration to ball
-- add impulse to ball
-- add acceleration to paddle
-- add impulse to paddle
-- add friction to ball
-- add impulse to paddle
-
+- add spin property to ball
+- add acceleration property to ball and paddles
+- add impulse property to ball and paddles
+- add friction to ball and paddles

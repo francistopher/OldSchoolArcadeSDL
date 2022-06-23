@@ -16,8 +16,13 @@ struct RGBA
 	int r, g, b, a;
 };
 
-void drawShittyBall(SDL_Renderer *renderer, SDL_Rect rect, struct RGBA color);
+struct Position
+{
+	int x, y;
+};
 
+void drawBall(SDL_Renderer *renderer, SDL_Rect rect, int radius, int radiusi);
+void drawBallLayer(SDL_Renderer *renderer, SDL_Rect rect, int radius, int radiusi, int direction, int subLayerLen, int layerLen, int subLayeri, int layeri);
 
 int main(int argc, const char* argv[])
 {
@@ -28,20 +33,23 @@ int main(int argc, const char* argv[])
 
 	SDL_Window *window = SDL_CreateWindow("Pong 1.0", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN); // create window
 
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED); // create renderer
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // draw background
-	SDL_RenderClear(renderer);
+	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED); // create what draws contents
 
-	struct RGBA white = {.r = 255, .g = 255, .b = 255, .a = 255}; // draw shitty pixelated ball
-	SDL_Rect ballRect = {
-		.x = (WIDTH - BALL_LENGTH) / 2,
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // set color
+	SDL_RenderClear(renderer); // clear contents with set color
+
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // set color
+	
+	SDL_Rect pixelPosition = { // draw pong ball
+		.x = (WIDTH - BALL_LENGTH) / 2, 
 		.y = (HEIGHT - BALL_LENGTH) / 2,
-		.w = BALL_LENGTH,
-		.h = BALL_LENGTH,
+		.w = 1,
+		.h = 1,
 	};
-	drawShittyBall(renderer, ballRect, white);
+	int ballRadius = 5;
+	drawBall(renderer, pixelPosition, ballRadius, 1);
 
-	SDL_RenderPresent(renderer); // have renderer present
+	SDL_RenderPresent(renderer); // have renderer present drawn contents
 
 	SDL_Event event;  // create event
 
@@ -51,11 +59,50 @@ int main(int argc, const char* argv[])
 		}
 	}
 
-
 	SDL_Quit(); // quit
 }
 
-void drawShittyBall(SDL_Renderer *renderer, SDL_Rect rect, struct RGBA color) {
-	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderFillRect(renderer, &rect);
+/*
+ * Draws a layer of the pong ball by circulating around it pixel by pixel
+ */
+void drawBallLayer(SDL_Renderer *renderer, SDL_Rect rect, int radius, int radiusi, int direction, int subLayerLen, int layerLen, int subLayeri, int layeri)
+{
+	if (layeri != layerLen) { // draw pixels when layer has not been drawn
+		printf("DRAW PIXEL LAYER x: %d y: %d\n", rect.x, rect.y);
+		SDL_RenderFillRect(renderer, &rect);
+	}
+	if (subLayeri == subLayerLen) { // if one side has been drawn
+		printf("Sub Layer Len: %d\n", subLayerLen);
+		direction += 1; // change direction
+		subLayeri = 0;
+	}
+	if (layeri == layerLen) { // layer has been drawn
+		rect.y += 1; // offset for next layer
+		drawBall(renderer, rect, radius, radiusi); // draw next layer
+	} else { // continue in the current direction
+		direction %= 4; 
+		if (direction == 0) {
+			rect.x += 1;
+		} else if (direction == 1) {
+			rect.y -= 1;
+		} else if (direction == 2) {
+			rect.x -= 1;
+		} else if (direction == 3) {
+			rect.y += 1;
+		}
+		drawBallLayer(renderer, rect, radius, radiusi, direction, subLayerLen, layerLen, subLayeri + 1, layeri + 1); // draw same layer
+	}
+}
+
+/*
+ *	Draws the pong ball layer by layer
+ */
+void drawBall(SDL_Renderer *renderer, SDL_Rect rect, int radius, int radiusi) 
+{
+	if (radiusi < radius + 1) { // iterating through layers
+		printf("Draw pixel x: %d y: %d\n", rect.x, rect.y);
+		SDL_RenderFillRect(renderer, &rect);
+		rect.x += 1; // offset for next layer
+		drawBallLayer(renderer, rect, radius, radiusi + 1, 1, radiusi * 2, 8 * radiusi, 1, 0); 
+	}
 }
