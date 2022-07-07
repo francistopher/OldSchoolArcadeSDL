@@ -2,11 +2,6 @@
 
 - i didn't know about this game until high school pretty sad
 
-## Object file build command for Apple Silicon
-
-```
-clang -v program.c -I/opt/homebrew/include -L/opt/homebrew/lib -lSDL2 -o program.o
-```
 ## To do
 
 - draw paddles pixel by pixel
@@ -23,3 +18,6 @@ clang -v program.c -I/opt/homebrew/include -L/opt/homebrew/lib -lSDL2 -o program
 - add acceleration property to ball and paddles
 - add impulse property to ball and paddles
 - add friction to ball and paddles
+
+- **provide the option of a donut shaped pong ball**
+

@@ -36,7 +36,7 @@ int main(int argc, const char* argv[])
 		.x = (WIDTH - (ballRadius * 2)) / 2, 
 		.y = (HEIGHT - (ballRadius * 2)) / 2
 	};
-	drawBall(renderer, center, position, ballRadius, 1);
+	drawBall(renderer, center, position, ballRadius, 1); // leave the 5th param with a value of 1
 
 	SDL_RenderPresent(renderer); // have renderer present drawn contents
 	SDL_Event event;  // create event
