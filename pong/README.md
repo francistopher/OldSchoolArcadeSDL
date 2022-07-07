@@ -7,11 +7,9 @@
 ```
 clang -v program.c -I/opt/homebrew/include -L/opt/homebrew/lib -lSDL2 -o program.o
 ```
-
 ## To do
 
 - draw paddles pixel by pixel
-- draw the ball with roundness 
 - add movement to the ball and the paddles
 - have ball bounce off paddles
 - reset ball when it goes out of bounds
