@@ -9,6 +9,7 @@
 #include <SDL2/SDL.h>
 #include <math.h>
 #include "ball.h"
+#include "paddle.h"
 
 #define WIDTH 640
 #define HEIGHT 640
@@ -37,6 +38,20 @@ int main(int argc, const char* argv[])
 		.y = (HEIGHT - (ballRadius * 2)) / 2
 	};
 	drawBall(renderer, center, position, ballRadius, 1); // leave the 5th param with a value of 1
+
+
+	unsigned short paddleWidth = 1;
+	unsigned short paddleHeight = 1;
+	struct PaddleCoordinate pcenter = {
+		.x = 100,
+		.y = 100
+	};
+
+	struct Dimension size = {
+		.width = 100,
+		.height = 100
+	};
+	drawPaddle(renderer, pcenter, pcenter, size);
 
 	SDL_RenderPresent(renderer); // have renderer present drawn contents
 	SDL_Event event;  // create event
