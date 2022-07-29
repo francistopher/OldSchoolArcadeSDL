@@ -11,7 +11,8 @@ struct Dimension {
     unsigned short height;
 };
 
-void drawPaddle(SDL_Renderer *renderer, struct PaddleCoordinate center, struct PaddleCoordinate position, struct Dimension size);
 
+void drawPaddle(SDL_Renderer *renderer, struct PaddleCoordinate position, struct Dimension size, unsigned short y);
+void drawPaddleRow(SDL_Renderer *renderer, struct PaddleCoordinate position, struct Dimension size, unsigned short x);
 #endif
 

@@ -40,18 +40,28 @@ int main(int argc, const char* argv[])
 	drawBall(renderer, center, position, ballRadius, 1); // leave the 5th param with a value of 1
 
 
-	unsigned short paddleWidth = 1;
-	unsigned short paddleHeight = 1;
-	struct PaddleCoordinate pcenter = {
+	struct PaddleCoordinate paddle1Position = {
 		.x = 100,
 		.y = 100
 	};
 
-	struct Dimension size = {
-		.width = 100,
+	struct Dimension paddle1Size = {
+		.width = 10,
 		.height = 100
 	};
-	drawPaddle(renderer, pcenter, pcenter, size);
+	drawPaddle(renderer, paddle1Position, paddle1Size, 0);
+
+	struct PaddleCoordinate paddle2Position = {
+		.x = 400,
+		.y = 400
+	};
+
+	struct Dimension paddle2Size = {
+		.width = 10,
+		.height = 60
+	};
+	
+	drawPaddle(renderer, paddle2Position, paddle2Size, 0);
 
 	SDL_RenderPresent(renderer); // have renderer present drawn contents
 	SDL_Event event;  // create event
