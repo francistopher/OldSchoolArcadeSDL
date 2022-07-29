@@ -6,7 +6,8 @@
 
 - [x] draw ball in terms of radius/diameter instead of rect
 - [x] draw ball with roundness
-- [ ] draw paddles pixel by pixel
+- [x] draw paddles pixel by pixel
+- [ ] add round edges to paddles
 - [ ] add movement to the ball and the paddles
 - [ ] have ball bounce off paddles
 - [ ] reset ball when it goes out of bounds
@@ -27,4 +28,4 @@
 - [ ] draw pong ball elliptically 
 - [ ] add spin property to ball
 - [ ] add impulse property to ball and paddles
-- [ ] allow pong ball to compress during contact and expand afterwards  
+- [ ] allow pong ball to compress during contract and expand afterwards  
